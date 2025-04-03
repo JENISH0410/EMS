@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const Login = () => {
@@ -6,11 +7,22 @@ const Login = () => {
 
   const handleLogin = ()=>{
     console.log({email,password})
+
+    const userData = {
+      email: email,
+      password: password
+    }
+
+    axios.post('http://localhost:5112/api/auth/login',userData)
+    .then((response) => {
+      console.log(response.data);
+      alert("Login successful")
+    })
   }
 
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw]">
-      <div className="h-[40vh] w-[25vw] p-4 rounded-xl flex flex-col bg-gray-400">
+      <div className="h-[50vh] w-[25vw] p-4 rounded-xl flex flex-col bg-gray-400">
         <h3 className="text-center text-2xl">Login</h3>
         <label htmlFor="email" className="mx-8 mt-12">
           Email:

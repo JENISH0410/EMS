@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -6,13 +7,27 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignUp = ()=>{
-    console.log({name,email,password,confirmPassword})
+  const handleSignUp = async ()=>{
+    console.log({name,email,password,confirmPassword});
+
+    if(password!==confirmPassword){
+      alert("Password and confirm password do not match")
+      return;
+    }
+
+    const userData = {
+      name,
+      email,
+      password
+    }
+
+    const response = await axios.post("http://localhost:5112/api/auth/signup",userData)
+    console.log(response)
   }
 
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw]">
-      <div className="h-[55vh] w-[25vw] p-4 rounded-xl flex flex-col bg-gray-400">
+      <div className="h-[65vh] w-[25vw] p-4 rounded-xl flex flex-col bg-gray-400">
         <h3 className="text-center text-2xl">Sign Up</h3>
         <label htmlFor="name" className="mx-8 mt-12">
           Name:
@@ -63,7 +78,7 @@ const Signup = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <div className="text-center">
-          <button className="bg-blue-400 px-8 py-2 rounded-xl mt-8 hover:bg-blue-200" onClick={handleSignUp}>
+          <button className="bg-blue-400 px-8 py-2 rounded-xl mt-4 hover:bg-blue-200" onClick={handleSignUp}>
             Sign Up
           </button>
         </div>
