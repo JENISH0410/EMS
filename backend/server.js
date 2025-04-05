@@ -6,6 +6,7 @@ import authRouter from './routes/AuthRoutes.js'
 import cors from 'cors'
 import { connect } from 'mongoose'
 import connectDB from './config/DbConfig.js'
+import teamRouter from './routes/TeamRoutes.js'
 
 
 const app = express()
@@ -22,6 +23,9 @@ app.listen(PORT,()=>{
 
 // authentication route
 app.use('/api/auth',authRouter)
+
+// team route
+app.use('/api/team',teamRouter)
 
 app.get('/',(req,res)=>{
     console.log("ping check")
